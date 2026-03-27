@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pain is Not the Problem — Christopher Polden</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest:       #1B4332;
+  --forest-mid:   #2D6A4F;
+  --forest-light: #52B788;
+  --forest-pale:  #D8F3DC;
+  --gold:         #B7945A;
+  --gold-light:   #D4B483;
+  --cream:        #FAF8F3;
+  --warm:         #F5F0E8;
+  --dark:         #1A1A1A;
+  --mid:          #555550;
+  --gray:         #888880;
+  --white:        #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  background: var(--forest);
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(82,183,136,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(183,148,90,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, rgba(15,67,50,0.6) 0%, transparent 100%);
+}
+
+/* Animated leaf particles */
+.leaves { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.leaf {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(82,183,136,0.25);
+  animation: float linear infinite;
+}
+@keyframes float {
+  0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+}
+
+/* Gold vertical accent */
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: var(--gold);
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6vw, 80px);
+  font-weight: 900;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.hero-title span {
+  color: var(--forest-light);
+  display: block;
+}
+
+.hero-subtitle {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: rgba(216,243,220,0.85);
+  margin-bottom: 40px;
+  line-height: 1.5;
+  max-width: 520px;
+}
+
+.hero-hooks {
+  list-style: none;
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero-hooks li {
+  font-size: 17px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.5;
+  padding-left: 28px;
+  position: relative;
+}
+
+.hero-hooks li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.hero-hooks li strong { color: var(--white); }
+
+.cta-group { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  color: var(--forest);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 18px 36px;
+  border-radius: 4px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  border: 2px solid var(--gold);
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-primary .price {
+  background: rgba(27,67,50,0.25);
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.cta-note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+/* Hero right — book mockup */
+.hero-book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.book-cover {
+  width: 260px;
+  background: var(--forest-mid);
+  border-radius: 4px 12px 12px 4px;
+  padding: 40px 28px;
+  box-shadow:
+    -8px 0 0 rgba(0,0,0,0.3),
+    -12px 4px 20px rgba(0,0,0,0.4),
+    0 20px 60px rgba(0,0,0,0.5);
+  border-left: 5px solid rgba(0,0,0,0.2);
+  position: relative;
+  animation: bookFloat 4s ease-in-out infinite;
+}
+
+@keyframes bookFloat {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50%       { transform: translateY(-10px) rotate(-0.5deg); }
+}
+
+.book-cover::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -5px; width: 5px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 4px 0 0 4px;
+}
+
+.book-gold-line { height: 2px; background: var(--gold); margin-bottom: 20px; }
+
+.book-title-small {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.book-title-em {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--forest-light);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.book-sub {
+  font-family: 'DM Serif Display', serif;
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(216,243,220,0.7);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.book-gold-line2 { height: 1px; background: rgba(183,148,90,0.4); margin-bottom: 20px; }
+
+.book-author {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.book-author strong { color: var(--gold-light); display: block; font-size: 13px; letter-spacing: 0; text-transform: none; margin-bottom: 2px; }
+
+.book-badge {
+  background: var(--gold);
+  color: var(--forest);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+/* ── SOCIAL PROOF STRIP ───────────────────────────────────────────────────── */
+.proof-strip {
+  background: var(--forest-mid);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.proof-item {
+  text-align: center;
+  color: var(--white);
+}
+
+.proof-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--forest-light);
+  display: block;
+}
+
+.proof-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ── SECTIONS ─────────────────────────────────────────────────────────────── */
+.section { padding: 100px 40px; max-width: 1100px; margin: 0 auto; }
+
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 700;
+  color: var(--forest);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.section-intro {
+  font-size: 18px;
+  color: var(--mid);
+  line-height: 1.7;
+  max-width: 620px;
+  margin-bottom: 60px;
+}
+
+/* ── PAIN POINTS ──────────────────────────────────────────────────────────── */
+.pain-section { background: var(--warm); padding: 100px 0; }
+.pain-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  margin-top: 50px;
+}
+
+.pain-card {
+  background: var(--white);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.pain-card:hover { transform: translateY(-4px); }
+
+.pain-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold);
+}
+
+.pain-icon { font-size: 32px; margin-bottom: 16px; }
+.pain-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--forest); margin-bottom: 10px; }
+.pain-card p { font-size: 15px; color: var(--mid); line-height: 1.65; }
+
+/* ── CHAPTERS ─────────────────────────────────────────────────────────────── */
+.chapters-section { background: var(--white); padding: 100px 0; }
+.chapters-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+.chapter-list { display: flex; flex-direction: column; gap: 2px; margin-top: 50px; }
+
+.chapter-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  background: var(--warm);
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.chapter-item:hover { background: var(--forest-pale); }
+
+.chapter-num {
+  background: var(--forest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 28px 16px;
+  color: var(--forest-light);
+}
+
+.chapter-num-big {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.chapter-num-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(82,183,136,0.6);
+  margin-top: 4px;
+}
+
+.chapter-content { padding: 28px 32px; }
+
+.chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--forest);
+  margin-bottom: 6px;
+}
+
+.chapter-desc { font-size: 15px; color: var(--mid); line-height: 1.6; }
+
+/* ── WHO IT'S FOR ─────────────────────────────────────────────────────────── */
+.for-section { background: var(--forest); padding: 100px 0; position: relative; overflow: hidden; }
+.for-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(82,183,136,0.08) 0%, transparent 60%);
+}
+.for-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 1; }
+.for-inner .section-title { color: var(--white); }
+.for-inner .section-eyebrow { color: var(--gold); }
+
+.for-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 50px;
+}
+
+.for-col h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.for-yes h3 { color: var(--forest-light); }
+.for-no h3  { color: rgba(255,255,255,0.35); }
+
+.for-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+
+.for-yes .for-list li {
+  font-size: 16px;
+  color: rgba(255,255,255,0.88);
+  padding-left: 26px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.for-yes .for-list li::before {
+  content: '✓';
+  position: absolute; left: 0;
+  color: var(--forest-light);
+  font-weight: 700;
+}
+
+.for-no .for-list li {
+  font-size: 16px;
+  color: rgba(255,255,255,0.35);
+  padding-left: 26px;
+  position: relative;
+  line-height: 1.5;
+  text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,0.2);
+}
+
+.for-no .for-list li::before {
+  content: '✗';
+  position: absolute; left: 0;
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* ── ABOUT ────────────────────────────────────────────────────────────────── */
+.about-section { background: var(--cream); padding: 100px 0; }
+.about-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 40px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-photo-wrap { position: sticky; top: 40px; }
+
+.about-photo {
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: var(--forest-mid);
+  border: 5px solid var(--gold);
+  overflow: hidden;
+  margin: 0 auto 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  color: var(--forest-light);
+  font-weight: 700;
+}
+
+.about-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--forest);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.about-role {
+  font-size: 13px;
+  color: var(--gold);
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.about-content .section-eyebrow { margin-bottom: 12px; }
+.about-content .section-title { font-size: 38px; margin-bottom: 32px; }
+
+.about-text {
+  font-size: 16px;
+  color: var(--mid);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.about-text strong { color: var(--forest); font-weight: 500; }
+
+.creds-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 32px;
+}
+
+.cred-pill {
+  background: var(--forest-pale);
+  color: var(--forest);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+/* ── GUARANTEE ────────────────────────────────────────────────────────────── */
+.guarantee-section { background: var(--warm); padding: 80px 0; }
+.guarantee-inner {
+  max-width: 700px; margin: 0 auto; padding: 0 40px;
+  text-align: center;
+}
+
+.guarantee-badge {
+  width: 100px; height: 100px;
+  background: var(--forest);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 32px;
+  font-size: 42px;
+  border: 4px solid var(--gold);
+  box-shadow: 0 0 0 8px rgba(183,148,90,0.15);
+}
+
+.guarantee-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--forest);
+  margin-bottom: 20px;
+}
+
+.guarantee-inner p {
+  font-size: 17px;
+  color: var(--mid);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.guarantee-inner p strong { color: var(--forest); }
+
+/* ── FAQ ──────────────────────────────────────────────────────────────────── */
+.faq-section { background: var(--white); padding: 100px 0; }
+.faq-inner { max-width: 760px; margin: 0 auto; padding: 0 40px; }
+.faq-inner .section-title { text-align: center; margin-bottom: 50px; }
+
+.faq-list { display: flex; flex-direction: column; gap: 2px; }
+
+.faq-item { border-left: 3px solid var(--forest-pale); overflow: hidden; }
+
+.faq-q {
+  padding: 22px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--forest);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--warm);
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.faq-q:hover { background: var(--forest-pale); }
+
+.faq-q::after {
+  content: '+';
+  font-size: 22px;
+  color: var(--gold);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-item.open { border-left-color: var(--gold); }
+
+.faq-a {
+  padding: 0 24px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s;
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.75;
+  background: var(--white);
+}
+
+.faq-item.open .faq-a { max-height: 400px; padding: 20px 24px 24px; }
+
+/* ── FINAL CTA ────────────────────────────────────────────────────────────── */
+.final-cta {
+  background: var(--forest);
+  padding: 120px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(82,183,136,0.1) 0%, transparent 70%);
+}
+
+.final-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.final-cta h2 em {
+  font-style: italic;
+  color: var(--forest-light);
+}
+
+.final-cta p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 48px;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  position: relative;
+}
+
+.final-cta .btn-primary { position: relative; }
+
+.final-note {
+  margin-top: 24px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  position: relative;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────────── */
+footer {
+  background: #0F2D20;
+  padding: 40px;
+  text-align: center;
+  border-top: 3px solid var(--gold);
+}
+
+footer p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8; }
+footer a { color: var(--forest-light); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-book { display: none; }
+  .for-grid { grid-template-columns: 1fr; }
+  .about-inner { grid-template-columns: 1fr; }
+  .about-photo-wrap { position: static; }
+  .proof-strip { gap: 30px; }
+  .chapter-item { grid-template-columns: 70px 1fr; }
+  .chapter-num-big { font-size: 30px; }
+}
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="leaves" id="leaves"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">A Biomechanics Guide — Christopher Polden</p>
+      <h1 class="hero-title">
+        Pain is Not<br>
+        <span>the Problem.</span>
+      </h1>
+      <p class="hero-subtitle">A science-backed guide to finding the real cause of your pain — and lasting relief.</p>
+
+      <ul class="hero-hooks">
+        <li>Your knee hurts. But the problem is in your <strong>foot.</strong></li>
+        <li>Your back aches. But the problem is in your <strong>hips.</strong></li>
+        <li>Your neck is tense. The problem might be your <strong>jaw — or your stress.</strong></li>
+      </ul>
+
+      <div class="cta-group">
+        <a href="https://gumroad.com" class="btn-primary" target="_blank">
+          Get the Guide <span class="price">$25 USD</span>
+        </a>
+        <p class="cta-note">Instant PDF download<br>30-day money-back guarantee</p>
+      </div>
+    </div>
+
+    <div class="hero-book">
+      <div class="book-cover">
+        <div class="book-gold-line"></div>
+        <div class="book-title-small">PAIN IS NOT</div>
+        <div class="book-title-em">THE PROBLEM</div>
+        <div class="book-sub">A Biomechanics Guide to Finding the Real Cause and Lasting Relief</div>
+        <div class="book-gold-line2"></div>
+        <div class="book-author">
+          <strong>Christopher Polden</strong>
+          Certified PT · Biomechanics Specialist<br>13 Years Experience
+        </div>
+      </div>
+      <div class="book-badge">📥 Instant Digital Download</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="proof-item">
+    <span class="proof-num">13</span>
+    <span class="proof-label">Years Experience</span>
+  </div>
+  <div class="proof-item">
+    <span class="proof-num">8</span>
+    <span class="proof-label">In-Depth Chapters</span>
+  </div>
+  <div class="proof-item">
+    <span class="proof-num">50+</span>
+    <span class="proof-label">Scientific References</span>
+  </div>
+  <div class="proof-item">
+    <span class="proof-num">12+</span>
+    <span class="proof-label">Qualifications</span>
+  </div>
+</div>
+
+<!-- PAIN POINTS -->
+<section class="pain-section">
+  <div class="pain-inner">
+    <p class="section-eyebrow reveal">Sound familiar?</p>
+    <h2 class="section-title reveal">Most people treat the pain.<br>Not the cause.</h2>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <div class="pain-icon">🦵</div>
+        <h3>Chronic knee pain</h3>
+        <p>You've tried physio, rest, and painkillers. It keeps coming back — because no one has looked at your hips or your feet.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🔙</div>
+        <h3>Lower back pain</h3>
+        <p>The most common chronic complaint in the world — and the most misunderstood. The back is almost never the source.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🧠</div>
+        <h3>Neck & shoulder tension</h3>
+        <p>Hours at a desk, jaw clenching, stress that lives in your body. Two causes — two completely different solutions.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🦶</div>
+        <h3>Mysterious aches</h3>
+        <p>Pain that moves around, that doctors say has no cause. Often it's the kinetic chain — and a simple shift changes everything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<section class="chapters-section">
+  <div class="chapters-inner">
+    <p class="section-eyebrow reveal">Inside the guide</p>
+    <h2 class="section-title reveal">8 chapters that will change<br>how you understand your body.</h2>
+    <p class="section-intro reveal">Every chapter is science-backed, jargon-free, and ends with a clear action step you can take today.</p>
+
+    <div class="chapter-list">
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">1</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">How your body actually moves</div>
+          <div class="chapter-desc">The kinetic chain explained — why everything from your feet to your neck is connected, and how one small dysfunction travels everywhere.</div>
+        </div>
+      </div>
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">2</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">Why posture matters more than you think</div>
+          <div class="chapter-desc">The real cost of sitting still all day — disc pressure, shoulder rounding, neck load, and effects you'd never expect, including your eyesight.</div>
+        </div>
+      </div>
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">3</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">The real cause of lower back pain</div>
+          <div class="chapter-desc">After 13 years treating clients, I always look at the hips and feet first. The back is almost never where the problem starts.</div>
+        </div>
+      </div>
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">4</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">Knee pain and what your hips have to do with it</div>
+          <div class="chapter-desc">The missing neural connection that most physios and trainers overlook — and why strengthening alone is never enough.</div>
+        </div>
+      </div>
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">5</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">Shoulder and neck tension explained</div>
+          <div class="chapter-desc">Two distinct causes require two distinct solutions. One is postural. The other might completely surprise you.</div>
+        </div>
+      </div>
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">6</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">The warning signs you should never ignore</div>
+          <div class="chapter-desc">How to read your body's early signals before small problems become chronic — and the one question that changes everything.</div>
+        </div>
+      </div>
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">7</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">How to train without hurting yourself</div>
+          <div class="chapter-desc">Most people need more daily movement — not more gym sessions. Includes a 5-minute morning routine you can start tomorrow.</div>
+        </div>
+      </div>
+      <div class="chapter-item reveal">
+        <div class="chapter-num"><span class="chapter-num-big">8</span><span class="chapter-num-label">Ch.</span></div>
+        <div class="chapter-content">
+          <div class="chapter-title">Motion is lotion — your daily movement reset</div>
+          <div class="chapter-desc">A simple, sustainable daily routine anyone can follow. No gym, no equipment, no excuses — just movement woven into real life.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="for-section">
+  <div class="for-inner">
+    <p class="section-eyebrow reveal">Is this guide for you?</p>
+    <h2 class="section-title reveal">Written for everyday people.<br>Not elite athletes.</h2>
+    <div class="for-grid">
+      <div class="for-yes reveal">
+        <h3>This IS for you if...</h3>
+        <ul class="for-list">
+          <li>You have chronic back, knee, shoulder or neck pain</li>
+          <li>You sit at a desk most of the day and feel it in your body</li>
+          <li>You've been told "nothing is wrong" — but still hurt</li>
+          <li>You want to understand your body before something goes wrong</li>
+          <li>You're ready to move more — but don't know where to begin</li>
+          <li>You're a parent who wants to keep up with your kids</li>
+        </ul>
+      </div>
+      <div class="for-no reveal">
+        <h3>This is NOT for you if...</h3>
+        <ul class="for-list">
+          <li>You're looking for an advanced training programme</li>
+          <li>You want a diet plan or nutrition protocol</li>
+          <li>You're a competitive athlete seeking performance gains</li>
+          <li>You expect results without reading or applying the content</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="about-photo-wrap reveal">
+      <div class="about-photo">CP</div>
+      <div class="about-name">Christopher Polden</div>
+      <div class="about-role">Certified Personal Trainer<br>Biomechanics Specialist<br>13 Years Experience</div>
+      <div class="creds-grid" style="margin-top:20px;">
+        <span class="cred-pill">Biomechanics</span>
+        <span class="cred-pill">Movement Analytics</span>
+        <span class="cred-pill">CrossFit Coach</span>
+        <span class="cred-pill">Functional Strength</span>
+        <span class="cred-pill">Digital Health Coach</span>
+        <span class="cred-pill">Nutrition</span>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <p class="section-eyebrow">About the author</p>
+      <h2 class="section-title">I've been the patient.<br>And the practitioner.</h2>
+      <p class="about-text">I grew up in Bergen, Norway, obsessed with football from the moment I could kick a ball. My dad was my first coach. I was never the most talented player — I just worked harder than everyone else. Coaches told me I was too small. I kept going anyway, eventually becoming one of the youngest players to debut at senior level in Norway.</p>
+      <p class="about-text">Then I broke my ankle. Tore all the ligaments. And never recovered properly. I fell into depression, gained weight, and stopped caring about my body entirely. It was my dad who pushed me toward a gym — and the personal trainer I found there who changed my life. After <strong>100+ sessions</strong> together, I enrolled in the same education he had, qualified as a PT, and never looked back.</p>
+      <p class="about-text">Over 13 years, I've helped hundreds of people understand their bodies, resolve chronic pain, and move better. Then two years ago, I was hit simultaneously by <strong>COVID-19 and mononucleosis</strong> — and was subsequently diagnosed with Myalgic Encephalomyelitis. For the first time, I experienced everything I'd been teaching from the inside. This guide is built from all of it.</p>
+      <p class="about-text" style="color:var(--forest);font-weight:500;">📧 PTGjovik@gmail.com &nbsp;·&nbsp; 📱 @chrispoldeb</p>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee-section">
+  <div class="guarantee-inner reveal">
+    <div class="guarantee-badge">🛡️</div>
+    <h2>30-Day Money-Back Guarantee</h2>
+    <p>If you're not satisfied with the guide within 30 days of purchase, email <strong>PTGjovik@gmail.com</strong> and you'll receive a full refund — no questions asked.</p>
+    <p>I stand behind this guide completely. You have nothing to lose and everything to gain.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <h2 class="section-title reveal">Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">What format is the guide in?</div>
+        <div class="faq-a">It's a PDF — readable on any device including your phone, tablet, laptop or desktop. You'll receive an instant download link after purchase.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Do I need any equipment?</div>
+        <div class="faq-a">None at all. The guide and all the exercises and routines in it require zero equipment. Everything is designed for everyday people in everyday environments.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Is this a workout programme?</div>
+        <div class="faq-a">No — it's an education guide. It explains how your body works, why you hurt, and what to do about it. It includes a 5-minute morning routine and a daily movement checklist, but it is not a structured training programme.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">I'm not very active. Is this still for me?</div>
+        <div class="faq-a">Absolutely — this guide is written specifically for everyday people, not athletes. Chapter 7 is dedicated entirely to how to start moving without hurting yourself, starting from zero.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Is the information scientifically backed?</div>
+        <div class="faq-a">Yes. Every major claim throughout the guide is supported by peer-reviewed research, with references cited at the end of each chapter. The science is real — the language is just written so anyone can understand it.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">What if I want more personalised help?</div>
+        <div class="faq-a">Feel free to reach out directly at PTGjovik@gmail.com or on Instagram @chrispoldeb. I'm happy to point you in the right direction.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Your body is not broken.<br><em>It just needs to be understood.</em></h2>
+  <p>Pain is not the problem. Pain is the signal. This guide teaches you to read it.</p>
+  <a href="https://gumroad.com" class="btn-primary" target="_blank">
+    Get the Guide — <span class="price">$25 USD</span>
+  </a>
+  <p class="final-note">Instant PDF download · 30-day money-back guarantee · © 2025 Christopher Polden</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong style="color:rgba(255,255,255,0.7);">Pain is Not the Problem</strong> — by Christopher Polden<br>
+    📧 <a href="mailto:PTGjovik@gmail.com">PTGjovik@gmail.com</a> &nbsp;·&nbsp;
+    📱 <a href="https://instagram.com/chrispoldeb" target="_blank">@chrispoldeb</a><br><br>
+    © 2025 Christopher Polden. All rights reserved.<br>
+    <span style="font-size:11px;">This guide is for educational purposes only and does not constitute medical advice.</span>
+  </p>
+</footer>
+
+<script>
+// Leaf particles
+const leaves = document.getElementById('leaves');
+for (let i = 0; i < 20; i++) {
+  const leaf = document.createElement('div');
+  leaf.className = 'leaf';
+  leaf.style.left = Math.random() * 100 + '%';
+  leaf.style.width = leaf.style.height = (Math.random() * 6 + 3) + 'px';
+  leaf.style.animationDuration = (Math.random() * 15 + 10) + 's';
+  leaf.style.animationDelay = (Math.random() * 10) + 's';
+  leaf.style.opacity = Math.random() * 0.4 + 0.1;
+  leaves.appendChild(leaf);
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
